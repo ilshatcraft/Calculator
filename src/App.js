@@ -9,27 +9,43 @@ import Form from 'react-bootstrap/Form'
 
 
  function App() {
+
+
+  const [equation,SetEquation]=useState('')
+ 
+  const inputs=(x)=>{
+    switch (x) {
+      case 1:
+        SetEquation(equation,x);
+        break;
+      
+      default:
+        
+    }
+  }
+
   return <div className='Body'>
 <div>
     <Form.Label></Form.Label>
     <Form.Control type="" placeholder="" />
     
-    <ButtonGroup className='Buttons_holder' >
-      <div>
+
+<ButtonGroup className='Buttons_holder' >
+    <div>
 <div vertical className='Buttons_holder_row'>
-  <Button>0</Button>
-  <Button>&nbsp;1</Button>
-  <Button>4</Button>
-  <Button>7</Button>
+  <Button>AC</Button>
+  <Button>&#129188;</Button>
+  <Button>&#65285;</Button>
+  <Button>&#247;</Button>
 
   
 </div>
 
 <div vertical className='Buttons_holder_row'>
-  <Button>1</Button>
+  <Button >1</Button>
   <Button>2</Button>
   <Button>3</Button>
-  <Button></Button>
+  <Button>&#215;</Button>
   
   
 </div>
@@ -38,23 +54,22 @@ import Form from 'react-bootstrap/Form'
   <Button>4</Button>
   <Button>5</Button>
   <Button>6</Button>
-  <Button>9</Button>
+  <Button>-</Button>
   
  
 </div>
 
 <div vertical className='Buttons_holder_row'>
-  <Button>1</Button>
-  <Button>2</Button>
-  <Button>3</Button>
+  <Button>7</Button>
+  <Button>8</Button>
   <Button>9</Button>
+  <Button>+</Button>
   </div>
 
-  <div vertical className='Buttons_holder_row'>
-  <Button>1</Button>
-  <Button>2</Button>
-  <Button>3</Button>
-  <Button>9</Button>
+  <div vertical className='Buttons_holder_row_last'>
+  <Button>,</Button>
+  <Button>0</Button>
+  <Button>=</Button>
   </div>
 
 </div>

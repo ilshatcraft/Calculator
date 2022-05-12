@@ -1,0 +1,27 @@
+@use './UI/button/MyButton.module.scss';
+@use './UI/input/MyInput.module.scss';
+@import "~bootstrap/scss/bootstrap";
+
+* {
+    margin: 0;
+    padding: 0;  
+    border-radius: 0%; 
+}
+
+.App{
+    text-align: center;
+}
+.Body{
+  display: flex;
+  justify-content: center;
+}
+.Buttons_holder{
+  padding-top: 10px;
+}
+button{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+
+

@@ -1,0 +1,88 @@
+.chat{
+  display: flex;
+  justify-content: center;
+}
+.chat_window{
+  
+}
+.chat_header{
+margin-top: 10%;
+text-align: center;
+}
+.chat_body{
+  overflow: auto; 
+  width: 300px;
+  height: 420px;
+  border-style: groove;
+  border-radius: 6px;
+  border-color: rgba(208,230,255,0.62877030162413);
+}
+.chat_footer{
+  display: flex;
+}
+.chat_footer_Button{
+ margin-top: 5px;
+ margin-left: auto;
+}
+
+#you{
+  
+.chat_body_message {
+  display: flex;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 10px;
+  background-color:rgb(214, 255, 208) ;
+  width: 110px;
+  border-radius: 4px;
+  text-align: center;
+  word-break:break-all;
+  
+}}
+#you{
+.chat_body_about{
+  display: flex;
+  margin-top: 4px;
+  font-size: small;
+   .chat_body_about_time{
+    margin-right: 10px;
+  }
+  .chat_body_about_author{
+    margin-left: auto;
+    display: flex;
+    margin-right: 10px;
+  }
+}
+}
+
+#other{
+  
+.chat_body_message {
+  
+  display: flex;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+ 
+  background-color:rgba(208,230,255,1) ;
+  width: 110px;
+  border-radius: 4px;
+  
+  word-break:break-all;
+ 
+}}
+
+#other{
+  
+.chat_body_about{
+  
+  display: flex;
+  margin-top: 4px;
+  margin-left: 10px;
+  font-size: small;
+   .chat_body_about_time{
+    margin-left: 10px;
+  }
+}
+}

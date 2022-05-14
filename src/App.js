@@ -9,22 +9,58 @@ import Form from 'react-bootstrap/Form'
 
 
  function App() {
-
-  let arr_ru = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ы', 'ъ', 'э', 'ю', 'я'];
-  let arr_RU = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ь', 'Ы', 'Ъ', 'Э', 'Ю', 'Я'];
-  let arr_en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  let arr_EN = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
+var symbols=['.',',','%','/','*','-','+']
   const [equation,SetEquation]=useState('')
+
+const check=(value, arr)=>{
+  for( let i=0;i<arr.length;i++){
+   if( value==arr[i]){
+    return true}
+  }
+  return false
+}
+
+const chek2=(value,arr)=>{
+  
+ if( (check(Object.values(equation).splice(-1,1),symbols))&& check(value,arr)){
+   return true
+ }
+ return false
+}
+
+const input_chek=(target)=>{
+let b=Object.values(target).splice(-1,1)
+  if( ((equation=='')&& (check(b,symbols)))){   
+    target=target.replace(/[^0-9]/g, '')
+    SetEquation(target)
+    return true
+  }
+  if((chek2(b,symbols))){
+    target=target.replace(/[^0-9]/g, '')
+    SetEquation(target+b)
+    return true
+  }
+  target=target.replace(/[^0-9\.\,\%\/\*\-\+]/g, '')
+  SetEquation(target)
+  return false
+}
+
  
   const inputs=(x,value)=>{
     switch (x) {
        case 1:
+        if( ((equation=='')&& (check(value,symbols)))){   
+         
+          break;
+        }
+        if((chek2(value,symbols))){
+          break;
+        }
         SetEquation(equation+value);
         break;
       case 2:
         
-        var  l=(Object.values(equation))
+        let  l=(Object.values(equation))
          l.splice(-1,1)
          SetEquation(l.join(''));
         break;
@@ -34,7 +70,7 @@ import Form from 'react-bootstrap/Form'
         break;
 
       case 4:
-          if (Object.values(equation).includes(value) )
+          
           break;  
        
      }
@@ -46,8 +82,8 @@ import Form from 'react-bootstrap/Form'
   <div>
     <input 
     type="text" 
-    value={equation.replace(/[^0-9\.\,\%\/\*\-\+]/g, '')}
-    onChange={(e)=>{SetEquation(e.target.value);}}
+    value={equation}
+    onChange={(e)=>{input_chek(e.target.value) ;}}
     ></input>
 </div>
 <ButtonGroup className='Buttons_holder' >

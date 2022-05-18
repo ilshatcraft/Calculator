@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form'
 
 function App() {
   var symbols=['.',',','/','*','-','+']
+  var signs=['/','*','-','+']
   const [equation,SetEquation]=useState('')
   var array_index
 
@@ -51,11 +52,14 @@ const string_to_int=(array,element_of_array,sign)=>{
    let number=[]
    let b=0;
    for(let i=element_of_array+sign;i<array.length&&i>-1;i=i+sign){
-    if(check(array[i],symbols)){
+    if(check(array[i],signs)){
       console.log('знак')
       break
     }
     number[b]=array[i]
+    if(number[b]==','){
+      number[b]='.'
+    }
     b++
      console.log('не знак')
    }

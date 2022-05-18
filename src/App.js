@@ -8,9 +8,10 @@ import Form from 'react-bootstrap/Form'
 
 
 
- function App() {
-var symbols=['.',',','%','/','*','-','+']
+function App() {
+  var symbols=['.',',','/','*','-','+']
   const [equation,SetEquation]=useState('')
+  var array_index
 
 const check=(value, arr)=>{
   for( let i=0;i<arr.length;i++){
@@ -20,7 +21,7 @@ const check=(value, arr)=>{
   return false
 }
 
-const chek2=(value,arr)=>{
+const check2=(value,arr)=>{
   
  if( (check(Object.values(equation).splice(-1,1),symbols))&& check(value,arr)){
    return true
@@ -31,20 +32,131 @@ const chek2=(value,arr)=>{
 const input_chek=(target)=>{
 let b=Object.values(target).splice(-1,1)
   if( ((equation=='')&& (check(b,symbols)))){   
-    target=target.replace(/[^0-9]/g, '')
-    SetEquation(target)
+    // target=target.replace(/[^0-9]/g, '')
+    // SetEquation(target)
     return true
   }
-  if((chek2(b,symbols))){
-    target=target.replace(/[^0-9]/g, '')
-    SetEquation(target+b)
+  if((check2(b,symbols))){
+    // target=target.replace(/[^0-9]/g, '')
+    // SetEquation(target+b)
     return true
   }
-  target=target.replace(/[^0-9\.\,\%\/\*\-\+]/g, '')
+  target=target.replace(/[^0-9\.\,\/\*\-\+]/g, '')
   SetEquation(target)
   return false
 }
 
+const string_to_int=(array,element_of_array,sign)=>{
+   console.log(array,element_of_array,sign)
+   let number=[]
+   let b=0;
+   for(let i=element_of_array+sign;i<array.length&&i>-1;i=i+sign){
+    if(check(array[i],symbols)){
+      console.log('знак')
+      break
+    }
+    number[b]=array[i]
+    b++
+     console.log('не знак')
+   }
+   console.log(number.join(''))
+   array_index=b
+   if(sign==-1){
+    return(number.reverse().join(''))
+   }
+   return(number.join(''))
+}
+
+const count=()=>{
+  let eqation_array=Object.values(equation)
+  let summ=0;
+  let final_summ=0;
+  if(!check(Object.values(equation).splice(-1,1),symbols)){
+
+  for(let l=0;l<eqation_array.length;l++){
+
+    if(eqation_array[l]==='*'){
+      string_to_int(eqation_array,l,-1)
+      let equation_length1
+      let equation_length2
+      let summ1=Number(string_to_int(eqation_array,l,-1))
+      equation_length1=array_index
+      let summ2=Number(string_to_int(eqation_array,l,1))
+      equation_length2=equation_length1+array_index+1
+      summ=summ1*summ2
+      eqation_array.splice(l-equation_length1,equation_length2,summ)
+      l=0
+      array_index=0
+      equation_length1=0
+      equation_length2=0
+      console.log(eqation_array)
+    }
+
+    else if(eqation_array[l]==='/'){
+      string_to_int(eqation_array,l,-1)
+      let equation_length1
+      let equation_length2
+      let summ1=Number(string_to_int(eqation_array,l,-1))
+      equation_length1=array_index
+      let summ2=Number(string_to_int(eqation_array,l,1))
+      equation_length2=equation_length1+array_index+1
+      summ=summ1/summ2
+      eqation_array.splice(l-equation_length1,equation_length2,summ)
+      l=0
+      array_index=0
+      equation_length1=0
+      equation_length2=0
+      console.log(eqation_array)
+    }
+
+   
+
+    summ=0;
+  }
+for(let l=0;l<eqation_array.length;l++){
+
+    if(eqation_array[l]==='+'){
+      string_to_int(eqation_array,l,-1)
+      let equation_length1
+      let equation_length2
+      let summ1=Number(string_to_int(eqation_array,l,-1))
+      equation_length1=array_index
+      let summ2=Number(string_to_int(eqation_array,l,1))
+      equation_length2=equation_length1+array_index+1
+      summ=summ1+summ2
+      eqation_array.splice(l-equation_length1,equation_length2,summ)
+      l=0
+      array_index=0
+      equation_length1=0
+      equation_length2=0
+      console.log(eqation_array)
+    }
+
+    else if(eqation_array[l]==='-'){
+      string_to_int(eqation_array,l,-1)
+      let equation_length1
+      let equation_length2
+      let summ1=Number(string_to_int(eqation_array,l,-1))
+      equation_length1=array_index
+      let summ2=Number(string_to_int(eqation_array,l,1))
+      equation_length2=equation_length1+array_index+1
+      summ=summ1-summ2
+      eqation_array.splice(l-equation_length1,equation_length2,summ)
+      l=0
+      array_index=0
+      equation_length1=0
+      equation_length2=0
+      console.log(eqation_array)
+    }
+    summ=0;
+  }
+
+
+
+  SetEquation(eqation_array.join(''))
+}
+else{console.log('net')}
+}
  
   const inputs=(x,value)=>{
     switch (x) {
@@ -53,7 +165,7 @@ let b=Object.values(target).splice(-1,1)
          
           break;
         }
-        if((chek2(value,symbols))){
+        if((check2(value,symbols))){
           break;
         }
         SetEquation(equation+value);
@@ -70,7 +182,7 @@ let b=Object.values(target).splice(-1,1)
         break;
 
       case 4:
-          
+        count();
           break;  
        
      }
@@ -91,9 +203,8 @@ let b=Object.values(target).splice(-1,1)
 <div  className='Buttons_holder_row'>
   <Button onClick={()=>inputs(3)}>AC</Button>
   <Button onClick={()=>inputs(2)}>&#129188;</Button>
-  <Button onClick={()=>inputs(1,'%')}>&#65285;</Button>
   <Button onClick={()=>inputs(1,'/')}>&#247;</Button>
-
+  <Button  onClick={()=>inputs(1,'*')}>&#215;</Button>
   
 </div>
 
@@ -101,7 +212,7 @@ let b=Object.values(target).splice(-1,1)
   <Button onClick={()=>inputs(1,1)}>1</Button>
   <Button onClick={()=>inputs(1,2)}>2</Button>
   <Button onClick={()=>inputs(1,3)}>3</Button>
-  <Button  onClick={()=>inputs(1,'*')}>&#215;</Button>
+  <Button onClick={()=>inputs(1,'-')}>-</Button>
   
   
 </div>
@@ -110,7 +221,7 @@ let b=Object.values(target).splice(-1,1)
   <Button onClick={()=>inputs(1,4)}>4</Button>
   <Button onClick={()=>inputs(1,5)}>5</Button>
   <Button onClick={()=>inputs(1,6)}>6</Button>
-  <Button onClick={()=>inputs(1,'-')}>-</Button>
+  <Button onClick={()=>inputs(1,'+')}>+</Button>
   
  
 </div>
@@ -119,13 +230,13 @@ let b=Object.values(target).splice(-1,1)
   <Button onClick={()=>inputs(1,7)}>7</Button>
   <Button onClick={()=>inputs(1,8)}>8</Button>
   <Button onClick={()=>inputs(1,9)}>9</Button>
-  <Button onClick={()=>inputs(1,'+')}>+</Button>
+  <Button onClick={()=>inputs(4)}>=</Button>
   </div>
 
   <div  className='Buttons_holder_row_last'>
   <Button onClick={()=>inputs(1,',')}>,</Button>
   <Button onClick={()=>inputs(1,0)}>0</Button>
-  <Button onClick={()=>inputs(4)}>=</Button>
+  
   </div>
 
 </div>
